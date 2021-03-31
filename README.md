@@ -1,5 +1,5 @@
 # rheascript
-a script making rhea input files form your fileexplorer
+A script making rhea input files form your fileexplorer
 
 
 # Idea
