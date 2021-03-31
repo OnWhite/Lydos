@@ -121,7 +121,7 @@ class rheascript(MDApp):
             directories = os.listdir(t)
             my_file = open( self.screen.ids.name.text+".tab", "w+")
             my_file.write("#Sample_ID\tR1-Ilumina-Output\tR2-Ilumina-Output\n")
-            if directories.pop(0).__contains__("R1"):
+
 
             line = []
             n = 0
