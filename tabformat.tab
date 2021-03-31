@@ -1,0 +1,5 @@
+#Sample_ID	R1-Illumina-Output	R2-Illumina-Output
+S1	V1.HFW.CD-R1.fastq	V1.HFW.CD-R2.fastq
+S2	V2.HFW.HFD-R1.fastq	V2.HFW.HFD-R2.fastq
+S3	V3.HFW.CD-R1.fastq	V3.HFW.CD-R2.fastq
+S4	V4.HFW.HFD-R1.fastq	V4.HFW.HFD-R2.fastq
