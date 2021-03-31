@@ -1,30 +1,15 @@
-import os
-import sys
-from tkinter.filedialog import askdirectory, Tk
 import shutil
 import tkinter as tk
-
-import psutil as psutil
-from fpdf import FPDF
 import os
-import sys
-import psutil
-import logging
-from pygments import highlight
+from tkinter.filedialog import askdirectory, Tk
 from kivy.lang import Builder
-
 from kivymd.app import MDApp
 
-from kivymd.uix.menu import MDDropdownMenu, RightContent
 
 
 
 
 KV = '''
-        
-
-        
-
 Screen:
         canvas.before:
                 Color:
@@ -52,7 +37,7 @@ Screen:
                         color_mode: 'custom'
                         #mode:"rectangle"
                         current_hint_text_color:(93/255,160/255,161/255,255/255)
-                        #line_color_normal:(93/255,160/255,161/255,255/255)
+                        
                 
                 CheckBox:
                         pos_hint: {'center_x': 0.365, 'center_y': 0.8}
@@ -80,10 +65,8 @@ Screen:
                         md_bg_color: (93/255,160/255,161/255,255/255)
                         theme_text_color: "Custom"
                         markup: False
-                    
                         text: "Read Files"
                         pos: (200,200)
-                    
                         on_release: app.auslesen()
                 MDRaisedButton:
                         id: reset
@@ -93,52 +76,48 @@ Screen:
                         md_bg_color: (93/255,160/255,161/255,255/255)
                         theme_text_color: "Custom"
                         markup: True
-                        on_release: app.runIt()
+                        
                         
         '''
 
 class rheascript(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        #setting global variables
         global IDs
         IDs=False
         global savefile
         savefile=""
+        #load Kivy String
         self.screen = Builder.load_string(KV)
 
-    # Methode zum UI Fensterschließen
+
 
     def getprogress(self):
+        # progressbar showing when the programm is finished
         global progress
         progress=20
         return progress
-    # Fileexplorer
-    def runIt(self):
-        self.main()
+
+
 
     def browseFiles(self):
-
-        Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
-        filename = askdirectory()  # show an "Open" dialog box and return the path to the selected file
-
-        # globale Variable mit ausgeählter Datei
+        Tk().withdraw()
+        filename = askdirectory()
         global t
         t = filename
+
     def setTrue(self):
         global IDs
         IDs=True
 
     def Files(self):
         directories = os.listdir(t)
-
-        # This would print all the files and directories
         my_file = open( self.screen.ids.name.text+".txt", "w+")
         my_file.write("SampleID\tR1IluminaOutput\tR2IluminaOutput\n")
         if directories.pop(0).__contains__("R1"):
             print("is your dir sorted")
-
         line = []
-
         for file in directories:
             for file2 in directories:
                 if file.replace("R1","").replace("R2","")==file2.replace("R2","").replace("R1",""):
@@ -165,7 +144,9 @@ class rheascript(MDApp):
 
     def build(self):
         return self.screen
+
     def Fehlermeldung(self):
+        #never used
         window = tk.Tk()
         window.title("Error")
         fehler = tk.Label(window)
@@ -175,6 +156,7 @@ class rheascript(MDApp):
 
     def einlesen(self):
         self.browseFiles()
+
     def setSaveplace(self):
         self.browseFiles()
         global savefile
