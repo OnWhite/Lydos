@@ -109,37 +109,63 @@ class rheascript(MDApp):
 
     def setTrue(self):
         global IDs
-        IDs=True
+        if IDs==False:
+
+            IDs=True
+        else:
+
+            IDs = False
 
     def Files(self):
-        directories = os.listdir(t)
-        my_file = open( self.screen.ids.name.text+".txt", "w+")
-        my_file.write("SampleID\tR1IluminaOutput\tR2IluminaOutput\n")
-        if directories.pop(0).__contains__("R1"):
-            print("is your dir sorted")
-        line = []
-        for file in directories:
-            for file2 in directories:
-                if file.replace("R1","").replace("R2","")==file2.replace("R2","").replace("R1",""):
-                    if file.__contains__("R1") and file2.__contains__("R2"):
-                        line.append("\t"+file+"\t"+file2+"\t")
-        if IDs==True:
-            f=0
-            for i in line:
-                my_file.write(str(f) +i+"\n")
-                print(len(line))
-                f=f+1
-        else:
-            for i in line:
-                my_file.write( i+"\n")
-                print(len(line))
-        my_file.close()
-        if savefile=="":
-            shutil.move("C:\\Users\\work\\PycharmProjects\\rheascript\\"+self.screen.ids.name.text+".txt", t.replace("/","\\"))
-        else:
-            shutil.move("C:\\Users\\work\\PycharmProjects\\rheascript\\"+self.screen.ids.name.text+".txt", savefile.replace("/","\\"))
-        global progress
-        progress = 100
+        if t!="":
+            directories = os.listdir(t)
+            my_file = open( self.screen.ids.name.text+".tab", "w+")
+            my_file.write("#Sample_ID\tR1-Ilumina-Output\tR2-Ilumina-Output\n")
+            if directories.pop(0).__contains__("R1"):
+
+            line = []
+            n = 0
+            for file in directories:
+                for file2 in directories:
+                    if file.replace("R1","").replace("R2","")==file2.replace("R2","").replace("R1",""):
+                        if file.__contains__("R1") and file2.__contains__("R2"):
+                            line.append("\t"+file+"\t"+file2+"\t")
+                            n=n+1
+
+            my_file2 = open("FilesNotMultiplexed.tab", "w+")
+            for file in directories:
+                f=0
+                for i in line:
+                    if i.__contains__(file):
+                        f=1
+                if f==0:
+                    my_file2.write(file+"\n")
+                    n=n+1
+
+            if IDs==True:
+                f=0
+                for i in line:
+                    my_file.write(str(f) +i+"\n")
+                    print(len(line))
+                    f=f+1
+            else:
+                for i in line:
+                    my_file.write( i+"\n")
+
+            my_file.close()
+            my_file2.close()
+            if savefile=="":
+                shutil.move("C:\\Users\\mitarbeiter\\PycharmProjects\\rheascript\\"+self.screen.ids.name.text+".tab", t.replace("/","\\"))
+                shutil.move(
+                    "C:\\Users\\mitarbeiter\\PycharmProjects\\rheascript\\FilesNotMultiplexed.tab",
+                    t.replace("/", "\\"))
+            else:
+                shutil.move("C:\\Users\\mitarbeiter\\PycharmProjects\\rheascript\\"+self.screen.ids.name.text+".tab", savefile.replace("/","\\"))
+                shutil.move(
+                    "C:\\Users\\mitarbeiter\\PycharmProjects\\rheascript\\FilesNotMultiplexed.tab",
+                    savefile.replace("/","\\"))
+            global progress
+            progress = 100
 
 
     def build(self):
@@ -166,8 +192,7 @@ class rheascript(MDApp):
         self.browseFiles()
         self.Files()
 
-    def syntax(self):
-        os.system('start syntax.docx')
+
 
 
 # main
