@@ -5,7 +5,7 @@ from tkinter.filedialog import askdirectory, Tk
 from kivy.lang import Builder
 from kivymd.app import MDApp
 
-
+# graphic string
 KV = '''
 Screen:
         canvas.before:
