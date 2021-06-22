@@ -1,4 +1,4 @@
-# rheascript
+# Lydos
 A script making Rhea input files form your file explorer
 
 
