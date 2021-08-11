@@ -1,0 +1,5 @@
+Possible errors:
+Filename contains:  / \ : * ? " < > |
+ID: not a whole number
+Read File:  there are no R1/ R2 (paired) Files
+            there already exists an FilesNotMultiplexed.tab or multiplexing_table.tab file
