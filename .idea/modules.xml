@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/rheascript.iml" filepath="$PROJECT_DIR$/.idea/rheascript.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Lydos.iml" filepath="$PROJECT_DIR$/.idea/Lydos.iml" />
     </modules>
   </component>
 </project>
