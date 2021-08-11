@@ -1,5 +1,5 @@
 # Lydos
-A script making Rhea input files form your file explorer
+A script making IMNGs input files (the perl script of it) form your file explorer
 
 ### Idea
 In order to use Rhea you need to multiplex your fastq files.
