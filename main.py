@@ -23,18 +23,17 @@ Screen:
                 MDTextField:
                         id:name
                         hint_text: "Table Name"
-                        pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+                        pos_hint:   {'center_x': 0.5, 'center_y': 0.9}
                         size_hint: 0.3, 0.1
                         
                         line_color_focus: (93/255,160/255,161/255,255/255)
                         color_mode: 'custom'
-                        #mode:"rectangle"
                         current_hint_text_color:(93/255,160/255,161/255,255/255)          
                         
 
                 #Textfiled for the starting ID
                 MDTextField:
-                        id:name2
+                        id:ids
                         hint_text: "ID starting number"
                         pos_hint: {'center_x': 0.5, 'center_y': 0.8}
                         size_hint: 0.3, 0.1
@@ -43,32 +42,33 @@ Screen:
                         current_hint_text_color:(93/255,160/255,161/255,255/255)
                 #checkbox whether files are paired 
                 CheckBox:
-                        pos_hint: {'center_x': 0.52, 'center_y': 0.6}
-                        on_active: app.setTruepaired()
+                        pos_hint: {'center_x': 0.535, 'center_y': 0.6}
+                        on_active: app.setPaired()
                         size_hint_x: .10
                         size: dp(48), dp(48)
                 #label describing the paired checkbox
                 Label:
                         pos_hint: {'center_x': 0.59, 'center_y':  0.6}
-                        text: "paired"
+                        text: "Paired"
                         size_hint_x: .80
-                        font_size:20
+                        font_size:16
+                        
                 #checkbox for file listing not multiplexed files
                 CheckBox:
-                        pos_hint: {'center_x': 0.365, 'center_y': 0.7}
-                        on_active: app.setTrueFilesNotMultiplexed()
-                        #color: (93/255,160/255,161/255,255/255)
+                        pos_hint: {'center_x': 0.364, 'center_y': 0.7}
+                        on_active: app.setFilesNotMultiplexed()
                         size_hint_x: .10
                         size: dp(48), dp(48)
                #label describing file listing not multiplexed files checkbox
                 Label:
-                        pos_hint: {'center_x': 0.51, 'center_y': 0.7}
+                        pos_hint: {'center_x': 0.489, 'center_y': 0.7}
                         text: "FilesNotMultiplexed"
                         size_hint_x: .80
-                        font_size:20
+                        font_size:16
+                        
                 #folder to select the output place
                 MDIconButton:
-                        id: button1
+                        id:outputdir
                         icon:'folder'
                         pos_hint: {'center_x': 0.365, 'center_y': 0.6}
                         text_color: (93/255,160/255,161/255,255/255)
@@ -79,7 +79,7 @@ Screen:
                 #button starting the reading process of the selected folder
                 MDRaisedButton:
                         pos_hint: {'center_x': 0.412, 'center_y': 0.5}
-                        id: auslesen
+                        id: read_files
                         md_bg_color: (93/255,160/255,161/255,255/255)
                         theme_text_color: "Custom"
                         markup: False
@@ -88,7 +88,7 @@ Screen:
                         on_release: app.readout()
                 #button to open the manual/description
                 MDRaisedButton:
-                        id: reset
+                        id: exit
                         pos_hint: {'center_x': 0.575, 'center_y': 0.5}
                         color: (154/255,84/255,93/255,200/255)
                         text: "Exit"
@@ -122,17 +122,15 @@ class Lydos(MDApp):
 
     @staticmethod
     def browseFiles():
-        # a method showing a file explorer window to select files
-        # draw the explorer (tkinter)
+        # fileexplorer
         Tk().withdraw()
         # get the selected filename
-        filename = askdirectory()
-        # save it in a global variable
+        file = askdirectory()
         global selectedfile
-        selectedfile = filename
+        selectedfile = file
 
     @staticmethod
-    def setTruepaired():
+    def setPaired():
         # method showing which value the paired checkbox has
         # runs when the box in the UI is checked
         global paired
@@ -149,7 +147,7 @@ class Lydos(MDApp):
         sys.exit()
 
     @staticmethod
-    def setTrueFilesNotMultiplexed():
+    def setFilesNotMultiplexed():
         # method showing which value the FilesNotMultiplexed checkbox has
         # runs when the box in the UI is checked
         global FNMdat
@@ -218,13 +216,13 @@ class Lydos(MDApp):
                         notinmainfilefile.write(file + "\n")
                 notinmainfilefile.close()
 
-            if self.screen.ids.name2.text != "":
-                if not self.screen.ids.name2.text.isnumeric():
-                    self.screen.ids.name_label.text = "Your ID is not a whole number"
+            if self.screen.ids.ids.text != "":
+                if not self.screen.ids.ids.text.isnumeric():
+                    self.screen.ids.name_label.text = "Your ID is not a whole number or to large"
                     return ""
 
                 # if the user wants automated ids
-                f = int(self.screen.ids.name2.text)
+                f = int(self.screen.ids.ids.text)
                 # counter for the id indexes
                 if len(line) < 2:
                     # Error
@@ -292,8 +290,6 @@ class Lydos(MDApp):
 
     def build(self):
         Window.size = (800, 500)
-        Window.set_icon('archive-search-outline.png')
-        self.icon = "archive-search-outline.png"
         return self.screen
 
     def setSaveplace(self):

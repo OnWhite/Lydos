@@ -1,4 +1,3 @@
-form kivy_deps import sdl2,glew,angle
 # -*- mode: python ; coding: utf-8 -*-
 
 
@@ -6,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['C:\\Users\\work\\PycharmProjects\\rheascript'],
+             pathex=['C:\\Users\\work\\PycharmProjects\\Lydos'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -19,7 +18,6 @@ a = Analysis(['main.py'],
              noarchive=False)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
-
 exe = EXE(pyz,
           a.scripts,
           a.binaries,
@@ -34,4 +32,3 @@ exe = EXE(pyz,
           upx_exclude=[],
           runtime_tmpdir=None,
           console=False )
-
